@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimalAPI</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            /* overflow-x: hidden; */
+        }
+
+        .container-fluid {
+            border: 1px solid black;
+
+        }
+
+        .imgDiv {
+            /* margin-left: 0; */
+            /* display: flex;
+            flex-direction: column; */
+            border: 1px solid black;
+            height: 100vh;
+            width: 100%;
+            padding: 4rem 3rem;
+            background-image: url("https://images.unsplash.com/photo-1470093851219-69951fcbb533?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGFuaW1hbHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .animal_form {
+            background-color: rgb(87, 87, 139);
+            width: 60%;
+            height: fit-content;
+            /* border: 1px solid black; */
+            border-radius: 2rem;
+            margin: 10rem auto 10rem;
+            padding: 10rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+        }
+
+        .animal_form input[type="text"] {
+            width: 50%;
+            border-radius: 3rem;
+            padding: 1rem;
+            outline: none;
+            border: none;
+            font-size: 1.5rem;
+        }
+
+        .animal_form input[type="url"] {
+            width: 80%;
+            border-radius: 3rem;
+            padding: 1rem;
+            outline: none;
+            border: none;
+            color: black;
+            font-size: 1.5rem;
+        }
+
+        .animal_form input[type="submit"] {
+            width: 10%;
+            border-radius: 3rem;
+            padding: 1rem;
+            outline: none;
+            border: none;
+            color: black;
+            font-size: 1.6rem;
+            margin-top: 4rem;
+            font-weight: bold;
+        }
+
+        .animal_form label {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        const post = () => {
+            $.ajax({
+
+                type: "POST",
+                url: "/animals",
+                // headers: { 'Access-Control-Allow-Origin': '*' },
+                dataType: 'json',
+                contentType: 'application/json',
+                data:
+                    JSON.stringify({
+                        "name": document.getElementById("animalName").value,
+                        "url": document.getElementById("animalUrl").value,
+                    })
+                ,
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (e) {
+                console.log(e)
+            },
+            });
+        }
+//         const post = ()=>{
+//         //   const name = document.getElementById("animalName").value;
+//         //   const url = document.getElementById("animalUrl").value;
+//         //   console.log(name);
+//         //   console.log(url);
+//           const url = "http://127.0.0.1:3000/animals";
+// fetch(url, {
+//     method : "POST",
+//     mode: 'no-cors',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//     body : JSON.stringify({
+//         id:7,
+//         name : document.getElementById('animalName').value,
+//         url : document.getElementById('animalUrl').value,
+//     })
+// }).then(
+//     response => response.json() // .json(), etc.
+//     // same as function(response) {return response.text();}
+// ).then(
+//     html => console.log(html)
+// );
+//         }
+    </script>
+    <div class="container-fluid">
+        <div class="imgDiv">
+            <h2 style=" text-align: center; border: 1px solid black; font-size: 4rem;">Rest API using Node.js, mongoose
+                and express</h2>
+            <a href="http://127.0.0.1:5000/animals">
+                <h1>Go to animal API</h1>
+            </a>
+        </div>
+
+        <div class="formDiv">
+            <form class="animal_form" action="http://127.0.0.1:5000/animals" method="POST">
+                <label>Animal Name</label><br>
+                <input type="text" name="name" id="animalName" placeholder="Type your favourite animal name"><br>
+                <label>Image URL</label><br>
+                <input type="url" name="url" id="animalUrl" placeholder="Enter the image URL">
+                <input type="button" onclick="post()" value="post" id="submitBtn">
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
